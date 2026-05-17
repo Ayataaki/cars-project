@@ -22,25 +22,6 @@ public class CarAiService {
     @Autowired
     private VoitureRepository voitureRepository;
 
-    // public String recommanderVoitures(String criteresUtilisateur){
-
-    //     Iterable<Voiture> voitures = voitureRepository.findAll();
-
-    //     StringBuilder catalogueText = new StringBuilder();
-
-    //     for(Voiture v : voitures){
-    //         catalogueText.append(String.format("- %s %s, Couleur: %s, Année: %d, Prix: %d DH\n",
-    //                 v.getMarque(), v.getModele(), v.getCouleur(), v.getAnnee(), v.getPrix()));
-    //     }
-
-    //     String prompt = "Tu es un conseiller expert en vente automobile chez MiolaCar.\n"+
-    //             "Voici la liste des voitures actuellement disponibles dans notre stock : \n"+
-    //             catalogueText.toString() + "\n"+
-    //             "En te basant UNIQUEMENT sur ce stock, réponds de manière professionnele à la demande suivante de l'acheteur :"+criteresUtilisateur;
-
-    //     return chatModel.call(prompt);
-    // }
-
     public String recommanderVoitures(String criteresUtilisateur) {
 
         Iterable<Voiture> voitures = voitureRepository.findAll();
@@ -87,15 +68,6 @@ public class CarAiService {
 
         return chatModel.call(prompt);
     }
-
-    // public String genererDescriptionMarketing(Voiture voiture){
-    //     String prompt = String.format(
-    //             "Rédige une annonce publicitaire captivante et vendeuse pour cette voiture d'occasion : "+
-    //                  "Marque: %s, Modèle: %s, Couleur: %s, Année: %d. Mets en avant ses qualités !",
-    //             voiture.getMarque(), voiture.getModele(), voiture.getCouleur(), voiture.getAnnee()
-    //     );
-    //     return chatModel.call(prompt);
-    // }
 
     public String genererDescriptionMarketing(Voiture voiture) {
 

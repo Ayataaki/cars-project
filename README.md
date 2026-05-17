@@ -1,4 +1,3 @@
-````markdown
 # 🚗 MiolaCar — Système de Gestion Automobile avec Intelligence Artificielle
 
 MiolaCar est une application web full-stack combinant la **gestion de voitures** avec un **assistant intelligent alimenté par IA** ainsi qu’un **générateur automatique d’annonces marketing**.  
@@ -266,5 +265,4 @@ Projet développé dans le cadre d’un apprentissage :
 * Docker & Microservices
 * Intégration de modèles LLM locaux
 
-```
 ```
