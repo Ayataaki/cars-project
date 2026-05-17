@@ -1,0 +1,111 @@
+services:
+
+  # ── 1. MariaDB ─────────────────────────────────────────────────────────────
+  mariadb:
+    image: mariadb:11
+    container_name: mariadb_cars
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: springboot
+      MYSQL_USER: spring
+      MYSQL_PASSWORD: spring
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ── 2. Ollama ──────────────────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama
+    container_name: ollama_cars
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # ✅ On laisse l'entrypoint PAR DÉFAUT d'Ollama (ollama serve)
+    # Le modèle est téléchargé par le service ollama-setup ci-dessous
+    healthcheck:
+      # ✅ ollama/ollama contient le binaire ollama — on l'utilise directement
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+      start_period: 30s
+
+  # ── 3. Téléchargement du modèle (one-shot, se termine après pull) ──────────
+  ollama-setup:
+    image: ollama/ollama
+    container_name: ollama_setup
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    # ✅ Attend qu'Ollama soit prêt puis pull le modèle si absent
+    entrypoint: >
+      /bin/sh -c "
+        echo 'Waiting for Ollama...';
+        until ollama list > /dev/null 2>&1; do
+          echo '  ...not ready, retrying in 3s';
+          sleep 3;
+        done;
+        echo 'Ollama ready!';
+        if ollama list | grep -q 'tinyllama'; then
+          echo 'Model tinyllama already present';
+        else
+          echo 'Pulling tinyllama...';
+          ollama pull tinyllama;
+          echo 'Done!';
+        fi
+      "
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+  # ── 4. Spring Boot ─────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend-spring
+      dockerfile: Dockerfile
+    container_name: spring_backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/springboot
+      SPRING_DATASOURCE_USERNAME: spring
+      SPRING_DATASOURCE_PASSWORD: spring
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.mariadb.jdbc.Driver
+      SPRING_AI_OLLAMA_BASE_URL: http://ollama:11434
+      SPRING_AI_OLLAMA_CHAT_MODEL: tinyllama
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MariaDBDialect
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+    restart: on-failure
+
+  # ── 5. React ───────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend-react
+      dockerfile: Dockerfile
+    container_name: react_frontend
+    ports:
+      - "3030:3030"
+    environment:
+      PORT: 3030
+      REACT_APP_API_URL: http://localhost:8080/api
+      WDS_SOCKET_PORT: 0
+    depends_on:
+      - backend
+
+volumes:
+  mariadb_data:
+  ollama_data:
