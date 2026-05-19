@@ -5,6 +5,32 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 
 ---
 
+# 📸 Aperçu de l’Application
+
+## 🏠 Page d’accueil
+![Home](screenshots/home.png)
+
+## 🚗 Gestion des voitures
+
+# L'ajout d'une voiture
+![Cars](screenshots/add-car.png)
+
+# La liste des voitures
+![Cars](screenshots/list-cars.png)
+
+# La modification d'une voiture
+![Cars](screenshots/edit-car.png)
+
+# La liste des voitures avec celle modifier
+![Cars](screenshots/edit-cars.png)
+
+## 🤖 Assistant IA
+![Assistant](screenshots/assistant.png)
+
+## 📣 Générateur Marketing
+![Marketing](screenshots/marketing.png)
+---
+
 # ✨ Fonctionnalités
 
 ## 🤖 Assistant Automobile Intelligent
