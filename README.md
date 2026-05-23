@@ -1,16 +1,16 @@
-# 🚗 MiolaCar — Système de Gestion Automobile avec Intelligence Artificielle
+# MiolaCar — Système de Gestion Automobile avec Intelligence Artificielle
 
 MiolaCar est une application web full-stack combinant la **gestion de voitures** avec un **assistant intelligent alimenté par IA** ainsi qu’un **générateur automatique d’annonces marketing**.  
 L’application permet de gérer un stock de véhicules, obtenir des recommandations intelligentes et générer automatiquement des descriptions publicitaires professionnelles grâce à une IA locale utilisant **Ollama**.
 
 ---
 
-# 📸 Aperçu de l’Application
+# Aperçu de l’Application
 
-## 🏠 Page d’accueil
+## Page d’accueil
 ![Home](screenshots/home.PNG)
 
-## 🚗 Gestion des voitures
+## Gestion des voitures
 
 ### L'ajout d'une voiture
 ![Cars](screenshots/add-car.PNG)
@@ -24,17 +24,17 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 ### La liste des voitures avec celle modifier
 ![Cars](screenshots/edit-cars.PNG)
 
-## 🤖 Assistant IA
+## Assistant IA
 ![Assistant](screenshots/assistant.PNG)
 
-## 📣 Générateur Marketing
+## Générateur Marketing
 ![Marketing](screenshots/marketing.PNG)
 
 ---
 
-# ✨ Fonctionnalités
+# Fonctionnalités
 
-## 🤖 Assistant Automobile Intelligent
+## Assistant Automobile Intelligent
 - Posez des questions en langage naturel
 - Obtenez des recommandations selon :
   - le budget
@@ -48,7 +48,7 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 
 ---
 
-## 📣 Générateur d’Annonce Marketing IA
+## Générateur d’Annonce Marketing IA
 - Génération automatique d’annonces publicitaires
 - Texte professionnel et convaincant
 - Mise en avant des qualités du véhicule
@@ -59,7 +59,7 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 
 ---
 
-## 🚗 Gestion Complète des Voitures
+## Gestion Complète des Voitures
 - Ajouter une voiture
 - Modifier une voiture
 - Supprimer une voiture
@@ -67,7 +67,7 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 
 ---
 
-## 🧠 Intelligence Artificielle Locale
+## Intelligence Artificielle Locale
 - Utilisation de **Ollama**
 - Modèle IA local (**TinyLlama**)
 - Aucun appel à une API externe
@@ -75,7 +75,7 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 
 ---
 
-# 🛠️ Technologies Utilisées
+# Technologies Utilisées
 
 ## Frontend
 - React.js
@@ -98,7 +98,7 @@ L’application permet de gérer un stock de véhicules, obtenir des recommandat
 
 ---
 
-# 🏗️ Architecture du Projet
+# Architecture du Projet
 
 ```text
 Frontend React
@@ -112,9 +112,9 @@ Ollama (IA locale)
 
 ---
 
-# 🚀 Lancement du Projet
+# Lancement du Projet
 
-## 1️⃣ Cloner le projet
+## Cloner le projet
 
 ```bash
 git clone https://github.com/votre-username/miolacar.git
@@ -123,13 +123,13 @@ cd miolacar
 
 ---
 
-## 2️⃣ Démarrer Docker
+## Démarrer Docker
 
 Assurez-vous que **Docker Desktop** est bien lancé.
 
 ---
 
-## 3️⃣ Lancer l’application
+## Lancer l’application
 
 ```bash
 docker compose up --build
@@ -137,7 +137,7 @@ docker compose up --build
 
 ---
 
-# 🌐 Accès aux Services
+# Accès aux Services
 
 | Service        | URL                                                    |
 | -------------- | ------------------------------------------------------ |
@@ -147,9 +147,9 @@ docker compose up --build
 
 ---
 
-# 📡 Endpoints API
+# Endpoints API
 
-## 🚗 Gestion des voitures
+## Gestion des voitures
 
 | Méthode | Endpoint             | Description           |
 | ------- | -------------------- | --------------------- |
@@ -160,7 +160,7 @@ docker compose up --build
 
 ---
 
-## 🤖 Intelligence Artificielle
+## Intelligence Artificielle
 
 | Méthode | Endpoint                       | Description             |
 | ------- | ------------------------------ | ----------------------- |
@@ -169,7 +169,7 @@ docker compose up --build
 
 ---
 
-# ⚙️ Variables Importantes
+# Variables Importantes
 
 Dans le `docker-compose.yml` :
 
@@ -184,7 +184,7 @@ SPRING_AI_OLLAMA_CHAT_MODEL=tinyllama
 
 ---
 
-# 📦 Services Docker
+# Services Docker
 
 | Service      | Description                          |
 | ------------ | ------------------------------------ |
@@ -196,9 +196,9 @@ SPRING_AI_OLLAMA_CHAT_MODEL=tinyllama
 
 ---
 
-# 🧠 Fonctionnement de l’IA
+# Fonctionnement de l’IA
 
-## 📌 Assistant IA
+## Assistant IA
 
 L’application :
 
@@ -209,7 +209,7 @@ L’application :
 
 ---
 
-## 📌 Générateur Marketing
+## Générateur Marketing
 
 L’IA reçoit :
 
@@ -227,7 +227,7 @@ Puis génère automatiquement :
 
 ---
 
-# 💡 Objectifs du Projet
+# Objectifs du Projet
 
 Ce projet démontre :
 
@@ -239,7 +239,7 @@ Ce projet démontre :
 
 ---
 
-# 📌 Cas d’Utilisation
+# Cas d’Utilisation
 
 * Concession automobile
 * Assistant de vente intelligent
@@ -248,18 +248,18 @@ Ce projet démontre :
 
 ---
 
-# 🚧 Améliorations Futures
+# Améliorations Futures
 
-* 🔐 Authentification utilisateurs/admin
-* 🖼️ Génération d’images IA
-* 🌍 Support multilingue
-* ☁️ Déploiement Cloud
-* 📊 Tableau de bord analytique
-* ⚡ Streaming des réponses IA
+* Authentification utilisateurs/admin
+* Génération d’images IA
+* Support multilingue
+* Déploiement Cloud
+* Tableau de bord analytique
+* Streaming des réponses IA
 
 ---
 
-# ⚠️ Notes Importantes
+# Notes Importantes
 
 * Le premier lancement peut prendre plusieurs minutes
   (téléchargement du modèle IA TinyLlama ~600MB)
@@ -275,13 +275,13 @@ Ce projet démontre :
 
 ---
 
-# 📄 Licence
+# Licence
 
 Projet open-source sous licence MIT.
 
 ---
 
-# 👨‍💻 Auteur
+# Auteur
 
 Aya Taki
 
