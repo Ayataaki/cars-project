@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: miolacar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      # Attend que MariaDB et Ollama soient prêts avant de démarrer
+      initContainers:
+        - name: wait-for-mariadb
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z mariadb-svc 3306; do
+                echo "Waiting for MariaDB..."
+                sleep 3
+              done
+        - name: wait-for-ollama
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z ollama-svc 11434; do
+                echo "Waiting for Ollama..."
+                sleep 3
+              done
+      containers:
+        - name: backend
+          # Remplacez par votre image buildée et poussée sur un registry
+          # ex: docker build -t votre-registry/miolacar-backend:latest ./backend-spring
+          #     docker push votre-registry/miolacar-backend:latest
+          image: miolacar-backend:latest
+          imagePullPolicy: IfNotPresent   # pour les tests locaux (minikube)
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: password
+          livenessProbe:
+            httpGet:
+              path: /api/voitures
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /api/voitures
+              port: 8080
+            initialDelaySeconds: 45
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"

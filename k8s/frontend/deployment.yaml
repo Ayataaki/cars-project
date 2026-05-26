@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: miolacar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: miolacar-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3030
+          env:
+            - name: PORT
+              value: "3030"
+            - name: REACT_APP_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: REACT_APP_API_URL
+            - name: WDS_SOCKET_PORT
+              value: "0"
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

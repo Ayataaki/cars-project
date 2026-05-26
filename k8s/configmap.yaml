@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: miolacar
+data:
+  SPRING_DATASOURCE_URL: "jdbc:mariadb://mariadb-svc:3306/springboot"
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: "org.mariadb.jdbc.Driver"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+  SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.MariaDBDialect"
+  SPRING_AI_OLLAMA_BASE_URL: "http://ollama-svc:11434"
+  SPRING_AI_OLLAMA_CHAT_MODEL: "tinyllama"
+  REACT_APP_API_URL: "http://localhost/api"
+  OLLAMA_HOST: "http://ollama-svc:11434"

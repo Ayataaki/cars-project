@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ollama-setup
+  namespace: miolacar
+spec:
+  # Ne se relance pas si déjà réussi
+  ttlSecondsAfterFinished: 120
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: ollama-setup
+          image: ollama/ollama
+          env:
+            - name: OLLAMA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: OLLAMA_HOST
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "Waiting for Ollama..."
+              until ollama list > /dev/null 2>&1; do
+                echo "  ...not ready, retry in 3s"
+                sleep 3
+              done
+              echo "Ollama ready!"
+              if ollama list | grep -q "tinyllama"; then
+                echo "Model already present"
+              else
+                echo "Pulling tinyllama..."
+                ollama pull tinyllama
+                echo "Done!"
+              fi
+          volumeMounts:
+            - name: ollama-storage
+              mountPath: /root/.ollama
+      volumes:
+        - name: ollama-storage
+          persistentVolumeClaim:
+            claimName: ollama-data
